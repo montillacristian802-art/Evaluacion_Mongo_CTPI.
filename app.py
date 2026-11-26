@@ -25,6 +25,8 @@ def filtro_por_ficha(ficha):
 
 
 
+# 1 punto 
+
 @app.route("/api/cantidadAprendices")
 def cantidad_aprendices():
 
@@ -35,6 +37,30 @@ def cantidad_aprendices():
     })
     
     
+    
+ # 2 punto   
+   
+@app.route("/api/cantidadAprendices/<nivel>")
+def cantidad_aprendices_nivel(nivel):
+
+    nivel = nivel.upper()
+
+    cantidad = aprendices.count_documents({
+        "NIVEL_DE_FORMACION": nivel
+    })
+
+    return jsonify({
+        "CantidadAprendices": cantidad,
+        "Nivel de formación": nivel
+    })   
+   
+   
+   
+   
+   
+   
+   
+   
     
 if __name__ == "__main__":
     app.run(port=8000, debug=True)

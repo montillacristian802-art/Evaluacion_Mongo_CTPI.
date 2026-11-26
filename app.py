@@ -198,6 +198,28 @@ def aprendices_power_bi():
     
     
          
+# 8 punto
+
+@app.route("/api/cantidadPowerBICertificados")
+def cantidad_power_bi_certificados():
+
+    programa = "VISUALIZACION DE DATOS USANDO POWER BI"
+
+    filtro = {
+        "PROGRAMA": programa,
+        "ESTADO_APRENDIZ": "Certificado"
+    }
+
+    cantidad = aprendices.count_documents(filtro)
+
+    return jsonify({
+        "Programa": programa,
+        "CantidadAprendicesCertificados": cantidad
+    })
     
+    
+    
+    
+        
 if __name__ == "__main__":
     app.run(port=8000, debug=True)

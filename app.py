@@ -38,7 +38,7 @@ def cantidad_aprendices():
     
     
     
- # 2 punto   
+# 2 punto   
    
 @app.route("/api/cantidadAprendices/<nivel>")
 def cantidad_aprendices_nivel(nivel):
@@ -53,6 +53,32 @@ def cantidad_aprendices_nivel(nivel):
         "CantidadAprendices": cantidad,
         "Nivel de formación": nivel
     })   
+   
+   
+   
+   
+   
+# 3 punto
+   
+@app.route("/api/programas/<nivel>")
+def programas_nivel(nivel):
+
+    nivel = nivel.upper()
+
+    programas = aprendices.distinct(
+        "PROGRAMA",
+        {"NIVEL_DE_FORMACION": nivel}
+    )
+
+    programas.sort()
+
+    return jsonify({
+        "Nivel de formación": nivel,
+        "Programas": programas
+    })
+   
+   
+   
    
    
    

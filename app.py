@@ -219,7 +219,47 @@ def cantidad_power_bi_certificados():
     
     
     
+# 9 punto
+
+@app.route("/api/aprendicesFichaEstado/<int:ficha>", methods=["GET"])
+def aprendices_ficha_estado(ficha):
+
+    filtro = {
+        "FICHA": ficha,
+        "ESTADO_APRENDIZ": {"$in": ["Formacion", "Traslado"]}
+    }
+
+    proyeccion = {
+        "_id": 0,
+        "FICHA": 1,
+        "PROGRAMA": 1,
+        "NUMERO_DOCUMENTO": 1,
+        "NOMBRE": 1,
+        "PRIMER_APELLIDO": 1,
+        "SEGUNDO_APELLIDO": 1,
+        "ESTADO_APRENDIZ": 1
+    }
+
+    resultado = list(aprendices.find(filtro, proyeccion))
+
+    return jsonify({
+        "Ficha": ficha,
+        "Total_Aprendices": len(resultado),
+        "Aprendices": resultado
+    })
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
         
 if __name__ == "__main__":
     app.run(port=8000, debug=True)

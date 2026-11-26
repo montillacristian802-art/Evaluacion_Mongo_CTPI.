@@ -80,8 +80,31 @@ def programas_nivel(nivel):
    
    
    
-   
-   
+  
+# 4 punto
+    
+@app.route("/api/certificados/<path:programa>")
+def aprendices_certificados(programa):
+
+    filtro = {
+        "PROGRAMA": programa,
+        "ESTADO_APRENDIZ": "Certificado"
+    }
+
+    proyeccion = {
+        "_id": 0,
+        "FICHA": 1,
+        "NOMBRE": 1,
+        "PRIMER_APELLIDO": 1,
+        "SEGUNDO_APELLIDO": 1
+    }
+
+    lista = list(aprendices.find(filtro, proyeccion))
+
+    return jsonify({
+        "Aprendices_Certificados": lista,
+        "Programa": programa
+    })   
    
    
    

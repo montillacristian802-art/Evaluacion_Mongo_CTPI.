@@ -250,7 +250,25 @@ def aprendices_ficha_estado(ficha):
     
     
     
-    
+
+# 10 punto
+
+@app.route("/api/programasComplementariaVirtual")
+def programas_complementaria_virtual():
+
+    nivel = "COMPLEMENTARIA VIRTUAL"
+
+    programas = aprendices.distinct(
+        "PROGRAMA",
+        {"NIVEL_DE_FORMACION": nivel}
+    )
+
+    programas.sort()
+
+    return jsonify({
+        "Nivel de formación": nivel,
+        "Programas": programas
+    })   
     
     
     

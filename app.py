@@ -109,7 +109,38 @@ def aprendices_certificados(programa):
    
    
    
-   
+# 5 punto
+
+@app.route("/api/porCertificar/<int:ficha>/<int:limite>", methods=["GET"])
+def aprendices_por_certificar(ficha, limite):
+    filtro = {
+        "FICHA": ficha,
+        "ESTADO_APRENDIZ": "Por certificar"
+    }
+    proyeccion = {
+        "_id": 0,
+        "FICHA": 1,
+        "PROGRAMA": 1,
+        "NUMERO_DOCUMENTO": 1,
+        "NOMBRE": 1,
+        "PRIMER_APELLIDO": 1,
+        "SEGUNDO_APELLIDO": 1
+    }
+    resultado = list(
+        aprendices.find(filtro, proyeccion)
+        .sort("PRIMER_APELLIDO", -1)
+        .limit(limite)
+    )
+    return jsonify({
+        "Cantidad de Aprendices por Certificar": resultado
+    })
+    
+    
+    
+    
+    
+    
+     
     
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
